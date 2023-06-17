@@ -7,7 +7,7 @@ interface Task {
   priority: number;
 }
 
-const BASE_URL = 'http://localhost:3000/tasks'; // change to your json-server URL
+const BASE_URL = 'http://localhost:3001/tasks'; // change to your json-server URL
 
 export async function createTask(task: Task) {
   const data = await fetchWithJson<Task>(BASE_URL, {
