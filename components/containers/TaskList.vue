@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="{ name, description, priority } in tasks" :key="name">
+    <div v-for="{ name, description, priority, id } in tasks" :key="id">
       <TaskItem :name="name" :description="description" :priority="priority" />
     </div>
   </div>
@@ -8,24 +8,10 @@
 
 <script setup lang="ts">
 import TaskItem from '~/components/common/TaskItem.vue';
+import useTaskStore from '~/store/store';
+import { storeToRefs } from 'pinia';
 
-const tasks = [
-  {
-    name: 'Task 1',
-    description: 'This is the first task',
-    priority: 1,
-  },
-  {
-    name: 'Task 2',
-    description: 'This is the second task',
-    priority: 2,
-  },
-  {
-    name: 'Task 3',
-    description: 'This is the third task',
-    priority: 3,
-  },
-];
+const { tasks } = storeToRefs(useTaskStore());
 </script>
 
 <style scoped lang="css">

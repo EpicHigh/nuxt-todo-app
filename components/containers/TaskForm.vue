@@ -17,8 +17,11 @@
 </template>
 
 <script setup lang="ts">
+import { v4 as uuidv4 } from 'uuid';
 import TaskButton from '~/components/common/TaskButton.vue';
+import useTaskStore from '~/store/store';
 
+const store = useTaskStore();
 const task = useState('task-form', () => ({
   name: '',
   description: '',
@@ -26,8 +29,7 @@ const task = useState('task-form', () => ({
 }));
 
 const submitForm = () => {
-  // Call store action to add or update the task
-  // then reset a task
+  store.addTask({ id: uuidv4(), ...task.value });
   task.value = { name: '', description: '', priority: 0 };
 };
 </script>
