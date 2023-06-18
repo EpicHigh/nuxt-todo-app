@@ -24,8 +24,12 @@ defineEmits(['edit', 'delete']);
       </div>
     </div>
     <div class="task-action">
-      <TaskButton @click="$emit('edit')">Edit</TaskButton>
-      <TaskButton @click="$emit('delete')">Delete</TaskButton>
+      <TaskButton data-test="edit-button" @click="$emit('edit')"
+        >Edit
+      </TaskButton>
+      <TaskButton data-test="delete-button" @click="$emit('delete')"
+        >Delete
+      </TaskButton>
     </div>
   </li>
 </template>

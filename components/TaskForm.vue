@@ -4,6 +4,7 @@
       >Task Name:
       <input
         :value="name"
+        name="name"
         required
         type="text"
         @input="$emit('update:name', $event.target.value)"
@@ -13,6 +14,7 @@
       >Description:
       <input
         :value="description"
+        name="description"
         type="text"
         @input="$emit('update:description', $event.target.value)"
       />
@@ -21,9 +23,10 @@
       >Priority Level:
       <select
         :value="priority"
+        name="priority"
         required
         class="arrow-select"
-        @input="$emit('update:priority', $event.target.value)"
+        @change="$emit('update:priority', $event.target.value)"
       >
         <option :value="1">Low</option>
         <option :value="2">Medium</option>
