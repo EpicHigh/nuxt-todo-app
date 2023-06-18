@@ -22,6 +22,12 @@
       "rules": {
         "vue/multi-word-component-names": "off"
       }
+    },
+    {
+      "files": ["**/*.{config,test}.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ]
 }
