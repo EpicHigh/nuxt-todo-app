@@ -1,9 +1,23 @@
 <template>
   <NuxtLayout>
     <router-view />
+    <CommonDialog
+      v-if="errorStore.message"
+      @close="errorStore.clearError"
+      @keydown.esc="errorStore.clearError"
+    >
+      <div class="error-container">
+        <p>{{ errorStore.message }}</p>
+      </div>
+    </CommonDialog>
   </NuxtLayout>
 </template>
 <script setup lang="ts">
+import CommonDialog from '~/components/common/CommonDialog.vue';
+import useErrorStore from '~/store/error';
+
+const errorStore = useErrorStore();
+
 useHead({
   title: 'Task Manager',
   meta: [
@@ -42,5 +56,9 @@ body {
   font-size: 1.6rem;
   margin: 0;
   padding: 0;
+}
+
+.error-container {
+  padding: 2rem;
 }
 </style>
