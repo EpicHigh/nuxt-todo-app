@@ -10,7 +10,11 @@
     </label>
     <label
       >Priority Level:
-      <input v-model="task.priority" type="number" />
+      <select v-model="task.priority" class="arrow-select">
+        <option :value="1">Low</option>
+        <option :value="2">Medium</option>
+        <option :value="3">High</option>
+      </select>
     </label>
     <TaskButton class="button" type="submit">Submit</TaskButton>
   </form>
@@ -55,7 +59,8 @@ const submitForm = () => {
     gap: 4px;
   }
 
-  & input {
+  & input,
+  select {
     background-color: rgba(251, 251, 251, 0.74);
     border-radius: 12px;
     border: 1px solid rgb(206, 206, 211);

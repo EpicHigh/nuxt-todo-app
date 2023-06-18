@@ -6,8 +6,12 @@
     <div class="app-content">
       <div class="container">
         <TaskList v-if="tasks.length > 0" :tasks="tasks" />
-        <EmptyState v-else @click="showAddTaskDialog = true">
-          Add a task
+        <EmptyState
+          v-else
+          class="empty-state"
+          @click="showAddTaskDialog = true"
+        >
+          + Add a task
         </EmptyState>
         <CommonDialog
           v-if="showAddTaskDialog"
@@ -71,19 +75,27 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 .app-header {
   background-color: #2b6cb0;
   color: #fff;
   padding: 2rem;
   text-align: center;
 }
+
 .app-content {
   flex: 1;
   padding: 2rem;
+}
+
+.empty-state {
+  width: 100%;
+  height: 30vh;
 }
 </style>
