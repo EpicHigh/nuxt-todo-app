@@ -12,7 +12,7 @@
       >Priority Level:
       <input v-model="task.priority" type="number" />
     </label>
-    <TaskButton type="submit">Submit</TaskButton>
+    <TaskButton class="button" type="submit">Submit</TaskButton>
   </form>
 </template>
 
@@ -38,12 +38,10 @@ const submitForm = () => {
 .task-form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  max-width: 500px;
+  gap: 1.2rem;
   margin: auto;
-  padding: 16px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 
   & label {
     letter-spacing: 0;
@@ -71,7 +69,15 @@ const submitForm = () => {
   }
 
   @media (min-width: 768px) {
-    padding: 48px;
+    width: 320px;
   }
+
+  @media (min-width: 1024px) {
+    width: 400px;
+  }
+}
+
+.button {
+  margin-top: 1.2rem;
 }
 </style>

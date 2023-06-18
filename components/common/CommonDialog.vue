@@ -26,7 +26,7 @@
   transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: 5px;
-  padding: 20px;
+  padding: 2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 80%;
 
