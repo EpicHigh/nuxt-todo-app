@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import useErrorStore from '~/store/error';
-import { BASE_URL, GENERIC_ERROR } from '~/constants';
+import { BASE_URL, TASKS_ENDPOINT } from '~/constants';
+import axios from '~/services';
 
 export interface Task {
   id: string;
@@ -27,51 +28,46 @@ const useTaskStore = defineStore('task', {
   actions: {
     async fetchTasks() {
       const errorStore = useErrorStore();
-      const { data, error } = await useFetch<Task[]>(BASE_URL);
-      if (error.value) {
-        errorStore.setError(error.value?.message || GENERIC_ERROR);
-      } else {
-        this.tasks = data.value || [];
+      try {
+        const { data } = await axios.get<Task[]>(TASKS_ENDPOINT);
+        this.tasks = data || [];
+      } catch (error: unknown) {
+        errorStore.setError(error);
       }
     },
 
     async addTask(task: Task) {
-      this.tasks.push(task);
       const errorStore = useErrorStore();
-      const { error } = await useFetch<Task[]>(BASE_URL, {
-        method: 'POST',
-        body: JSON.stringify(task),
-      });
-      if (error.value) {
-        errorStore.setError(error.value?.message || GENERIC_ERROR);
+      this.tasks.push(task);
+      try {
+        await axios.post<Task[]>(TASKS_ENDPOINT, task);
+      } catch (error: unknown) {
+        errorStore.setError(error);
       }
     },
 
     async updateTask(task: Task) {
+      const errorStore = useErrorStore();
       const index = this.tasks.findIndex((t) => t.id === task.id);
       if (index > -1) {
         this.tasks[index] = task;
-        const errorStore = useErrorStore();
-        const { error } = await useFetch<Task[]>(`${BASE_URL}/${task.id}`, {
-          method: 'PUT',
-          body: JSON.stringify(task),
-        });
-        if (error.value) {
-          errorStore.setError(error.value?.message || GENERIC_ERROR);
+        try {
+          await axios.put<Task>(`${BASE_URL}/${task.id}`, task);
+        } catch (error: unknown) {
+          errorStore.setError(error);
         }
       }
     },
 
     async deleteTask(taskId: string) {
+      const errorStore = useErrorStore();
       const index = this.tasks.findIndex((t) => t.id === taskId);
       if (index > -1) {
         this.tasks.splice(index, 1);
-        const errorStore = useErrorStore();
-        const { error } = await useFetch<Task[]>(`${BASE_URL}/${taskId}`, {
-          method: 'DELETE',
-        });
-        if (error.value) {
-          errorStore.setError(error.value?.message || GENERIC_ERROR);
+        try {
+          await axios.delete<Task>(`${BASE_URL}/${taskId}`);
+        } catch (error: unknown) {
+          errorStore.setError(error);
         }
       }
     },
