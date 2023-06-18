@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <NuxtLayout>
+    <router-view />
+  </NuxtLayout>
 </template>
 <script setup lang="ts">
 useHead({

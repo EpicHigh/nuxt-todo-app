@@ -1,32 +1,25 @@
 <template>
-  <div class="app">
-    <div class="app-header">
-      <h1>Task Manager</h1>
-    </div>
-    <div class="app-content">
-      <div class="container">
-        <TaskList v-if="tasks.length > 0" :tasks="tasks" />
-        <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
-          + Add a task
-        </EmptyState>
-        <CommonDialog
-          v-if="addTaskDialog"
-          @close="hideAddTaskDialog"
-          @keydown.esc="hideAddTaskDialog"
-        >
-          <TaskForm @close="hideAddTaskDialog" />
-        </CommonDialog>
-        <CommonDialog
-          v-if="errorStore.message"
-          @close="errorStore.clearError"
-          @keydown.esc="errorStore.clearError"
-        >
-          <div class="error-container">
-            <p>{{ errorStore.message }}</p>
-          </div>
-        </CommonDialog>
+  <div class="container">
+    <TaskList v-if="tasks.length > 0" :tasks="tasks" />
+    <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
+      + Add a task
+    </EmptyState>
+    <CommonDialog
+      v-if="addTaskDialog"
+      @close="hideAddTaskDialog"
+      @keydown.esc="hideAddTaskDialog"
+    >
+      <TaskForm @close="hideAddTaskDialog" />
+    </CommonDialog>
+    <CommonDialog
+      v-if="errorStore.message"
+      @close="errorStore.clearError"
+      @keydown.esc="errorStore.clearError"
+    >
+      <div class="error-container">
+        <p>{{ errorStore.message }}</p>
       </div>
-    </div>
+    </CommonDialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -51,26 +44,12 @@ function showAddTaskDialog() {
 function hideAddTaskDialog() {
   addTaskDialog.value = false;
 }
+
+definePageMeta({
+  layout: 'default',
+});
 </script>
 <style lang="css">
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.app-header {
-  background-color: #2b6cb0;
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
-}
-
-.app-content {
-  flex: 1;
-  padding: 2rem;
-}
-
 .empty-state {
   width: 100%;
   height: 30vh;
