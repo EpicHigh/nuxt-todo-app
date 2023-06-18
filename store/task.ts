@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import useErrorStore from '~/store/error';
-import { BASE_URL, TASKS_ENDPOINT } from '~/constants';
+import { TASKS_ENDPOINT } from '~/constants';
 import axios from '~/services';
 
 export interface Task {
