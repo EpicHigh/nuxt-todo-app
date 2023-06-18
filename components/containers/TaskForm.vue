@@ -25,6 +25,8 @@ import { v4 as uuidv4 } from 'uuid';
 import TaskButton from '~/components/common/TaskButton.vue';
 import useTaskStore from '~/store/task';
 
+const emits = defineEmits(['close']);
+
 const store = useTaskStore();
 const task = useState('task-form', () => ({
   name: '',
@@ -35,6 +37,7 @@ const task = useState('task-form', () => ({
 const submitForm = () => {
   store.addTask({ id: uuidv4(), ...task.value });
   task.value = { name: '', description: '', priority: 0 };
+  emits('close');
 };
 </script>
 

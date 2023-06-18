@@ -14,7 +14,7 @@
           @close="hideAddTaskDialog"
           @keydown.esc="hideAddTaskDialog"
         >
-          <TaskForm />
+          <TaskForm @close="hideAddTaskDialog" />
         </CommonDialog>
         <CommonDialog
           v-if="errorStore.message"

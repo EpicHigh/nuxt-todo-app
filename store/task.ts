@@ -36,6 +36,7 @@ const useTaskStore = defineStore('task', {
       const errorStore = useErrorStore();
       const { error } = await useFetch<Task[]>(BASE_URL, {
         method: 'POST',
+        body: JSON.stringify(task),
       });
       if (error.value) {
         errorStore.setError(error.value?.message || GENERIC_ERROR);
