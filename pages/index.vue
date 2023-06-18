@@ -31,17 +31,22 @@ import useTaskStore, { Task } from '~/store/task';
 import { storeToRefs } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
 
-const taskDialog = useState('show-add-task-dialog', () => false);
-const { tasksByPriority } = storeToRefs(useTaskStore());
-const { addTask, fetchTasks, updateTask, deleteTask } = useTaskStore();
-const taskForm = useState('task-form', () => ({
+const initialTaskForm = {
   name: '',
   description: '',
   priority: 0,
   id: '',
-}));
+};
+const taskDialog = useState('show-add-task-dialog', () => false);
+const { tasksByPriority } = storeToRefs(useTaskStore());
+const { addTask, fetchTasks, updateTask, deleteTask } = useTaskStore();
+const taskForm = useState('task-form', () => initialTaskForm);
 
 await fetchTasks();
+
+function clearTaskForm() {
+  taskForm.value = initialTaskForm;
+}
 
 function showTaskDialog() {
   taskDialog.value = true;
@@ -49,6 +54,7 @@ function showTaskDialog() {
 
 function hideTaskDialog() {
   taskDialog.value = false;
+  clearTaskForm();
 }
 
 function editTask(task: Task) {
