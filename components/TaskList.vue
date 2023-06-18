@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <ul
+  <ul class="task-list">
+    <TaskItem
       v-for="{ name, description, priority, id } in props.tasks"
       :key="id"
-      class="task-list"
-    >
-      <TaskItem :name="name" :description="description" :priority="priority" />
-    </ul>
-  </div>
+      :name="name"
+      :description="description"
+      :priority="priority"
+    />
+  </ul>
 </template>
 
 <script setup lang="ts">

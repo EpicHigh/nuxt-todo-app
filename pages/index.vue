@@ -50,6 +50,7 @@ definePageMeta({
 .add-task-container {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 2.4rem;
 
   & > button {
     padding: 0.5rem 1rem;
