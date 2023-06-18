@@ -11,37 +11,45 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div>
-    <h2>{{ props.name }}</h2>
-    <p>{{ props.description }}</p>
-    <p>Priority: {{ props.priority }}</p>
-  </div>
+  <li class="list">
+    <div>
+      <div class="task-title">
+        <p class="task-name">{{ props.name }}</p>
+        <TaskBadge :priority="props.priority" />
+      </div>
+      <div class="task-description">
+        <p>{{ props.description }}</p>
+      </div>
+    </div>
+  </li>
 </template>
 
 <style scoped lang="css">
-div {
+.list {
+  padding: 1.6rem 0;
+  column-gap: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-
-  @media (min-width: 768px) {
-    width: 256px;
-  }
+  border-bottom: 1px solid #e5e7eb;
 }
 
-h2 {
-  font-size: 1.2em;
-  color: #333;
+.task-title {
+  column-gap: 0.75rem;
+  display: flex;
+  align-items: flex-start;
 }
 
-p {
-  color: #555;
+.task-name {
+  font-weight: 500;
+  line-height: 1.75rem;
+  font-size: 1.6rem;
 }
 
-p:last-of-type {
-  font-weight: bold;
+.task-description {
+  margin-top: 0.8rem;
+  color: #9ca3af;
+  line-height: 1.25rem;
+  font-size: 1.2rem;
 }
 </style>

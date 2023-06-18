@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import TaskButton from '~/components/TaskButton.vue';
 import { v4 as uuidv4 } from 'uuid';
 
 const emits = defineEmits(['submit']);

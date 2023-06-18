@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import TaskItem from '~/components/TaskItem.vue';
 import { Task } from '~/store/task';
 
 interface Props {
