@@ -24,7 +24,7 @@ const useTaskStore = defineStore('task', {
     async fetchTasks() {
       const errorStore = useErrorStore();
       const { data, error } = await useFetch<Task[]>(BASE_URL);
-      if (error) {
+      if (error.value) {
         errorStore.setError(error.value?.message || GENERIC_ERROR);
       } else {
         this.tasks = data.value || [];
@@ -37,7 +37,7 @@ const useTaskStore = defineStore('task', {
       const { error } = await useFetch<Task[]>(BASE_URL, {
         method: 'POST',
       });
-      if (error) {
+      if (error.value) {
         errorStore.setError(error.value?.message || GENERIC_ERROR);
       }
     },
@@ -50,7 +50,7 @@ const useTaskStore = defineStore('task', {
         const { error } = await useFetch<Task[]>(`${BASE_URL}/${index}`, {
           method: 'PUT',
         });
-        if (error) {
+        if (error.value) {
           errorStore.setError(error.value?.message || GENERIC_ERROR);
         }
       }
@@ -64,7 +64,7 @@ const useTaskStore = defineStore('task', {
         const { error } = await useFetch<Task[]>(`${BASE_URL}/${index}`, {
           method: 'DELETE',
         });
-        if (error) {
+        if (error.value) {
           errorStore.setError(error.value?.message || GENERIC_ERROR);
         }
       }
