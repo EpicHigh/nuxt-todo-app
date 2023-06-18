@@ -1,12 +1,12 @@
 <template>
-  <form class="task-form" @submit.prevent="emits('submit')">
+  <form class="task-form" @submit.prevent="$emit('submit')">
     <label
       >Task Name:
       <input
         :value="name"
         required
         type="text"
-        @input="emits('update:name', $event.target.value)"
+        @input="$emit('update:name', $event.target.value)"
       />
     </label>
     <label
@@ -14,7 +14,7 @@
       <input
         :value="description"
         type="text"
-        @input="emits('update:description', $event.target.value)"
+        @input="$emit('update:description', $event.target.value)"
       />
     </label>
     <label
@@ -23,7 +23,7 @@
         :value="priority"
         required
         class="arrow-select"
-        @input="emits('update:priority', $event.target.value)"
+        @input="$emit('update:priority', $event.target.value)"
       >
         <option :value="1">Low</option>
         <option :value="2">Medium</option>
@@ -39,12 +39,7 @@ import { Task } from '~/store/task';
 
 type Props = Omit<Task, 'id'>;
 
-const emits = defineEmits([
-  'submit',
-  'update:description',
-  'update:priority',
-  'update:name',
-]);
+defineEmits(['submit', 'update:description', 'update:priority', 'update:name']);
 withDefaults(defineProps<Props>(), {
   name: '',
   description: '',

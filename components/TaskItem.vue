@@ -3,37 +3,29 @@ import { Task } from '~/store/task';
 
 type Props = Omit<Task, 'id'>;
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   name: '',
   description: '',
   priority: 0,
 });
 
-const emit = defineEmits(['edit', 'delete']);
-
-function editTask() {
-  emit('edit');
-}
-
-function deleteTask() {
-  emit('delete');
-}
+defineEmits(['edit', 'delete']);
 </script>
 
 <template>
   <li class="list">
     <div>
       <div class="task-title">
-        <p class="task-name">{{ props.name }}</p>
-        <TaskBadge :priority="props.priority" />
+        <p class="task-name">{{ name }}</p>
+        <TaskBadge :priority="priority" />
       </div>
       <div class="task-description">
-        <p>{{ props.description }}</p>
+        <p>{{ description }}</p>
       </div>
     </div>
     <div class="task-action">
-      <TaskButton @click="editTask">Edit</TaskButton>
-      <TaskButton @click="deleteTask">Delete</TaskButton>
+      <TaskButton @click="$emit('edit')">Edit</TaskButton>
+      <TaskButton @click="$emit('delete')">Delete</TaskButton>
     </div>
   </li>
 </template>

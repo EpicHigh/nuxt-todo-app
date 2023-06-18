@@ -20,7 +20,7 @@
       <TaskForm
         v-model:name="taskForm.name"
         v-model:description="taskForm.description"
-        v-model:priority="taskForm.priority"
+        v-model:priority.number="taskForm.priority"
         @submit="submitTask"
       />
     </CommonDialog>

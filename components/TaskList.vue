@@ -1,13 +1,13 @@
 <template>
   <ul class="task-list">
     <TaskItem
-      v-for="{ name, description, priority, id } in props.tasks"
+      v-for="{ name, description, priority, id } in tasks"
       :key="id"
       :name="name"
       :description="description"
       :priority="priority"
-      @edit="() => editTask({ name, description, priority, id })"
-      @delete="() => deleteTask(id)"
+      @edit="$emit('edit', { name, description, priority, id })"
+      @delete="$emit('delete', id)"
     />
   </ul>
 </template>
@@ -19,18 +19,10 @@ interface Props {
   tasks: Task[];
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   tasks: () => [],
 });
-const emit = defineEmits(['edit', 'delete']);
-
-function editTask(task: Task) {
-  emit('edit', task);
-}
-
-function deleteTask(id: string) {
-  emit('delete', id);
-}
+defineEmits(['edit', 'delete']);
 </script>
 
 <style scoped lang="css">

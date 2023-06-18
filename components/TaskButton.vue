@@ -3,13 +3,13 @@ interface Props {
   type?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   type: 'button',
 });
 </script>
 
 <template>
-  <button class="button" v-bind="$attrs" :type="props.type">
+  <button class="button" v-bind="$attrs" :type="type">
     <slot />
   </button>
 </template>

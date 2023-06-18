@@ -3,7 +3,7 @@ interface Props {
   priority: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   priority: 0,
 });
 
@@ -25,13 +25,13 @@ function getPriorityContent(priority: number) {
   <span
     class="priority"
     :class="{
-      'high-priority': props.priority === 3,
-      'medium-priority': props.priority === 2,
-      'low-priority': props.priority === 1,
-      'unknown-priority': props.priority > 3 || props.priority < 1,
+      'high-priority': priority === 3,
+      'medium-priority': priority === 2,
+      'low-priority': priority === 1,
+      'unknown-priority': priority > 3 || priority < 1,
     }"
   >
-    {{ getPriorityContent(props.priority) }}
+    {{ getPriorityContent(priority) }}
   </span>
 </template>
 
