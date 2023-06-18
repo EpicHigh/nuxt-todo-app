@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import TaskItem from '~/components/common/TaskItem.vue';
-import useTaskStore from '~/store/store';
+import useTaskStore from '~/store/task';
 import { storeToRefs } from 'pinia';
 
 const { tasks } = storeToRefs(useTaskStore());

@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { v4 as uuidv4 } from 'uuid';
 import TaskButton from '~/components/common/TaskButton.vue';
-import useTaskStore from '~/store/store';
+import useTaskStore from '~/store/task';
 
 const store = useTaskStore();
 const task = useState('task-form', () => ({

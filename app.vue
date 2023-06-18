@@ -4,6 +4,12 @@
   </div>
 </template>
 <script setup lang="ts">
+import useTaskStore from '~/store/task';
+
+const taskStore = useTaskStore();
+
+await taskStore.fetchTasks();
+
 useHead({
   title: 'Task Manager',
   meta: [

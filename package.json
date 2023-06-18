@@ -8,7 +8,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "prepare": "husky install",
-    "db": "json-server --watch db.json --port 3001"
+    "db": "json-server --watch ./db/db.json --port 3001"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
