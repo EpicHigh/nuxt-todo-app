@@ -3,7 +3,12 @@
     <div v-if="tasks.length > 0" class="add-task-container">
       <TaskButton @click="showAddTaskDialog">+ Add a task</TaskButton>
     </div>
-    <TaskList v-if="tasks.length > 0" :tasks="tasks" />
+    <TaskList
+      v-if="tasks.length > 0"
+      :tasks="tasks"
+      @edit="updateTask"
+      @delete="deleteTask"
+    />
     <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
       + Add a task
     </EmptyState>
@@ -18,9 +23,11 @@
 </template>
 <script setup lang="ts">
 import useTaskStore, { Task } from '~/store/task';
+import { storeToRefs } from 'pinia';
 
 const addTaskDialog = useState('show-add-task-dialog', () => false);
-const { tasks, addTask, fetchTasks } = useTaskStore();
+const { tasks } = storeToRefs(useTaskStore());
+const { addTask, fetchTasks, updateTask, deleteTask } = useTaskStore();
 
 await fetchTasks();
 

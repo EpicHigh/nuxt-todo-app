@@ -6,6 +6,8 @@
       :name="name"
       :description="description"
       :priority="priority"
+      @edit="() => editTask({ name, description, priority, id })"
+      @delete="() => deleteTask(id)"
     />
   </ul>
 </template>
@@ -20,6 +22,15 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   tasks: () => [],
 });
+const emit = defineEmits(['edit', 'delete']);
+
+function editTask(task: Task) {
+  emit('edit', task);
+}
+
+function deleteTask(id: string) {
+  emit('delete', id);
+}
 </script>
 
 <style scoped lang="css">

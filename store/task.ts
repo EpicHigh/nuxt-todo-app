@@ -50,6 +50,7 @@ const useTaskStore = defineStore('task', {
         const errorStore = useErrorStore();
         const { error } = await useFetch<Task[]>(`${BASE_URL}/${index}`, {
           method: 'PUT',
+          body: JSON.stringify(task),
         });
         if (error.value) {
           errorStore.setError(error.value?.message || GENERIC_ERROR);
@@ -62,7 +63,7 @@ const useTaskStore = defineStore('task', {
       if (index > -1) {
         this.tasks.splice(index, 1);
         const errorStore = useErrorStore();
-        const { error } = await useFetch<Task[]>(`${BASE_URL}/${index}`, {
+        const { error } = await useFetch<Task[]>(`${BASE_URL}/${taskId}`, {
           method: 'DELETE',
         });
         if (error.value) {
