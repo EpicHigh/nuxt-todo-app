@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'button',
-  },
+interface Props {
+  type?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  type: 'button',
 });
 </script>
 
