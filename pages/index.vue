@@ -1,47 +1,72 @@
 <template>
   <div class="container">
-    <div v-if="tasks.length > 0" class="add-task-container">
-      <TaskButton @click="showAddTaskDialog">+ Add a task</TaskButton>
+    <div v-if="tasksByPriority.length > 0" class="add-task-container">
+      <TaskButton @click="showTaskDialog">+ Add a task</TaskButton>
     </div>
     <TaskList
-      v-if="tasks.length > 0"
-      :tasks="tasks"
-      @edit="updateTask"
+      v-if="tasksByPriority.length > 0"
+      :tasks="tasksByPriority"
+      @edit="editTask"
       @delete="deleteTask"
     />
-    <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
+    <EmptyState v-else class="empty-state" @click="showTaskDialog">
       + Add a task
     </EmptyState>
     <CommonDialog
-      v-if="addTaskDialog"
-      @close="hideAddTaskDialog"
-      @keydown.esc="hideAddTaskDialog"
+      v-if="taskDialog"
+      @close="hideTaskDialog"
+      @keydown.esc="hideTaskDialog"
     >
-      <TaskForm @submit="submitTask" />
+      <TaskForm
+        v-model:name="taskForm.name"
+        v-model:description="taskForm.description"
+        v-model:priority="taskForm.priority"
+        @submit="submitTask"
+      />
     </CommonDialog>
   </div>
 </template>
 <script setup lang="ts">
 import useTaskStore, { Task } from '~/store/task';
 import { storeToRefs } from 'pinia';
+import { v4 as uuidv4 } from 'uuid';
 
-const addTaskDialog = useState('show-add-task-dialog', () => false);
-const { tasks } = storeToRefs(useTaskStore());
+const taskDialog = useState('show-add-task-dialog', () => false);
+const { tasksByPriority } = storeToRefs(useTaskStore());
 const { addTask, fetchTasks, updateTask, deleteTask } = useTaskStore();
+const taskForm = useState('task-form', () => ({
+  name: '',
+  description: '',
+  priority: 0,
+  id: '',
+}));
 
 await fetchTasks();
 
-function showAddTaskDialog() {
-  addTaskDialog.value = true;
+function showTaskDialog() {
+  taskDialog.value = true;
 }
 
-function hideAddTaskDialog() {
-  addTaskDialog.value = false;
+function hideTaskDialog() {
+  taskDialog.value = false;
 }
 
-function submitTask(task: Task) {
-  addTask(task);
-  hideAddTaskDialog();
+function editTask(task: Task) {
+  taskForm.value = task;
+  showTaskDialog();
+}
+
+function submitTask() {
+  if (taskForm.value.id) {
+    updateTask(taskForm.value);
+    hideTaskDialog();
+  } else {
+    addTask({
+      ...taskForm.value,
+      id: uuidv4(),
+    });
+    hideTaskDialog();
+  }
 }
 
 definePageMeta({

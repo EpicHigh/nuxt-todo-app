@@ -11,14 +11,18 @@ export interface Task {
 
 interface State {
   tasks: Task[];
-  currentTask: Task | null;
 }
 
 const useTaskStore = defineStore('task', {
   state: (): State => ({
     tasks: [],
-    currentTask: null,
   }),
+
+  getters: {
+    tasksByPriority(state) {
+      return state.tasks.sort((a, b) => b.priority - a.priority);
+    },
+  },
 
   actions: {
     async fetchTasks() {
@@ -48,7 +52,7 @@ const useTaskStore = defineStore('task', {
       if (index > -1) {
         this.tasks[index] = task;
         const errorStore = useErrorStore();
-        const { error } = await useFetch<Task[]>(`${BASE_URL}/${index}`, {
+        const { error } = await useFetch<Task[]>(`${BASE_URL}/${task.id}`, {
           method: 'PUT',
           body: JSON.stringify(task),
         });
@@ -70,14 +74,6 @@ const useTaskStore = defineStore('task', {
           errorStore.setError(error.value?.message || GENERIC_ERROR);
         }
       }
-    },
-
-    setCurrentTask(task: Task | null) {
-      this.currentTask = task;
-    },
-
-    clearCurrentTask() {
-      this.currentTask = null;
     },
   },
 });

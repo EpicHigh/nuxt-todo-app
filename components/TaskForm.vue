@@ -1,16 +1,30 @@
 <template>
-  <form class="task-form" @submit.prevent="submitForm">
+  <form class="task-form" @submit.prevent="emits('submit')">
     <label
       >Task Name:
-      <input v-model="task.name" required type="text" />
+      <input
+        :value="name"
+        required
+        type="text"
+        @input="emits('update:name', $event.target.value)"
+      />
     </label>
     <label
       >Description:
-      <input v-model="task.description" type="text" />
+      <input
+        :value="description"
+        type="text"
+        @input="emits('update:description', $event.target.value)"
+      />
     </label>
     <label
       >Priority Level:
-      <select v-model="task.priority" required class="arrow-select">
+      <select
+        :value="priority"
+        required
+        class="arrow-select"
+        @input="emits('update:priority', $event.target.value)"
+      >
         <option :value="1">Low</option>
         <option :value="2">Medium</option>
         <option :value="3">High</option>
@@ -21,20 +35,21 @@
 </template>
 
 <script setup lang="ts">
-import { v4 as uuidv4 } from 'uuid';
+import { Task } from '~/store/task';
 
-const emits = defineEmits(['submit']);
+type Props = Omit<Task, 'id'>;
 
-const task = useState('task-form', () => ({
+const emits = defineEmits([
+  'submit',
+  'update:description',
+  'update:priority',
+  'update:name',
+]);
+withDefaults(defineProps<Props>(), {
   name: '',
   description: '',
   priority: 0,
-}));
-
-function submitForm() {
-  emits('submit', { id: uuidv4(), ...task.value });
-  task.value = { name: '', description: '', priority: 0 };
-}
+});
 </script>
 
 <style scoped lang="css">
