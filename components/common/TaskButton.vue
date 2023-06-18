@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<Props>(), {
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  text-transform: capitalize;
   letter-spacing: 0;
   line-height: 20px;
   color: rgb(255, 255, 255);

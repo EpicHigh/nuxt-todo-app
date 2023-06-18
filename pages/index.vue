@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div v-if="tasks.length > 0" class="add-task-container">
+      <TaskButton @click="showAddTaskDialog">+ Add a task</TaskButton>
+    </div>
     <TaskList v-if="tasks.length > 0" :tasks="tasks" />
     <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
       + Add a task
@@ -19,6 +22,7 @@ import TaskList from '~/components/containers/TaskList.vue';
 import EmptyState from '~/components/common/EmptyState.vue';
 import CommonDialog from '~/components/common/CommonDialog.vue';
 import TaskForm from '~/components/containers/TaskForm.vue';
+import TaskButton from '~/components/common/TaskButton.vue';
 
 const taskStore = useTaskStore();
 const addTaskDialog = useState('show-add-task-dialog', () => false);
@@ -42,5 +46,14 @@ definePageMeta({
 .empty-state {
   width: 100%;
   height: 30vh;
+}
+
+.add-task-container {
+  display: flex;
+  justify-content: flex-end;
+
+  & > button {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
