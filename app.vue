@@ -16,6 +16,7 @@
         <CommonDialog
           v-if="showAddTaskDialog"
           @close="showAddTaskDialog = false"
+          @keydown.esc="showAddTaskDialog = false"
         >
           <TaskForm />
         </CommonDialog>
