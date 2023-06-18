@@ -50,9 +50,9 @@ const useTaskStore = defineStore('task', {
       const errorStore = useErrorStore();
       const index = this.tasks.findIndex((t) => t.id === task.id);
       if (index > -1) {
-        this.tasks[index] = task;
         try {
-          await axios.put<Task>(`${BASE_URL}/${task.id}`, task);
+          await axios.put<Task>(`${TASKS_ENDPOINT}/${task.id}`, task);
+          this.tasks[index] = task;
         } catch (error: unknown) {
           errorStore.setError(error);
         }
@@ -63,9 +63,9 @@ const useTaskStore = defineStore('task', {
       const errorStore = useErrorStore();
       const index = this.tasks.findIndex((t) => t.id === taskId);
       if (index > -1) {
-        this.tasks.splice(index, 1);
         try {
-          await axios.delete<Task>(`${BASE_URL}/${taskId}`);
+          await axios.delete<Task>(`${TASKS_ENDPOINT}/${taskId}`);
+          this.tasks.splice(index, 1);
         } catch (error: unknown) {
           errorStore.setError(error);
         }
