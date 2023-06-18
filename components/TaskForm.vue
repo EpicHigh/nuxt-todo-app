@@ -10,7 +10,7 @@
     </label>
     <label
       >Priority Level:
-      <select v-model="task.priority" class="arrow-select">
+      <select v-model="task.priority" required class="arrow-select">
         <option :value="1">Low</option>
         <option :value="2">Medium</option>
         <option :value="3">High</option>
@@ -21,24 +21,21 @@
 </template>
 
 <script setup lang="ts">
+import TaskButton from '~/components/TaskButton.vue';
 import { v4 as uuidv4 } from 'uuid';
-import TaskButton from '~/components/common/TaskButton.vue';
-import useTaskStore from '~/store/task';
 
-const emits = defineEmits(['close']);
+const emits = defineEmits(['submit']);
 
-const store = useTaskStore();
 const task = useState('task-form', () => ({
   name: '',
   description: '',
   priority: 0,
 }));
 
-const submitForm = () => {
-  store.addTask({ id: uuidv4(), ...task.value });
+function submitForm() {
+  emits('submit', { id: uuidv4(), ...task.value });
   task.value = { name: '', description: '', priority: 0 };
-  emits('close');
-};
+}
 </script>
 
 <style scoped lang="css">

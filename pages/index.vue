@@ -12,23 +12,22 @@
       @close="hideAddTaskDialog"
       @keydown.esc="hideAddTaskDialog"
     >
-      <TaskForm @close="hideAddTaskDialog" />
+      <TaskForm @submit="submitTask" />
     </CommonDialog>
   </div>
 </template>
 <script setup lang="ts">
-import useTaskStore from '~/store/task';
-import TaskList from '~/components/containers/TaskList.vue';
-import EmptyState from '~/components/common/EmptyState.vue';
-import CommonDialog from '~/components/common/CommonDialog.vue';
-import TaskForm from '~/components/containers/TaskForm.vue';
-import TaskButton from '~/components/common/TaskButton.vue';
+import useTaskStore, { Task } from '~/store/task';
+import TaskList from '~/components/TaskList.vue';
+import EmptyState from '~/components/EmptyState.vue';
+import CommonDialog from '~/components/CommonDialog.vue';
+import TaskForm from '~/components/TaskForm.vue';
+import TaskButton from '~/components/TaskButton.vue';
 
-const taskStore = useTaskStore();
 const addTaskDialog = useState('show-add-task-dialog', () => false);
+const { tasks, addTask, fetchTasks } = useTaskStore();
 
-await taskStore.fetchTasks();
-const { tasks } = taskStore;
+await fetchTasks();
 
 function showAddTaskDialog() {
   addTaskDialog.value = true;
@@ -36,6 +35,11 @@ function showAddTaskDialog() {
 
 function hideAddTaskDialog() {
   addTaskDialog.value = false;
+}
+
+function submitTask(task: Task) {
+  addTask(task);
+  hideAddTaskDialog();
 }
 
 definePageMeta({

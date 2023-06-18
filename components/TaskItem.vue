@@ -1,9 +1,7 @@
 <script setup lang="ts">
-interface Props {
-  name: string;
-  description: string;
-  priority: number;
-}
+import { Task } from '~/store/task';
+
+type Props = Omit<Task, 'id'>;
 
 const props = withDefaults(defineProps<Props>(), {
   name: '',

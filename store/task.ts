@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import useErrorStore from '~/store/error';
 import { BASE_URL, GENERIC_ERROR } from '~/constants';
 
-interface Task {
+export interface Task {
   id: string;
   name: string;
   description: string;
