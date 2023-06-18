@@ -6,19 +6,24 @@
     <div class="app-content">
       <div class="container">
         <TaskList v-if="tasks.length > 0" :tasks="tasks" />
-        <EmptyState
-          v-else
-          class="empty-state"
-          @click="showAddTaskDialog = true"
-        >
+        <EmptyState v-else class="empty-state" @click="showAddTaskDialog">
           + Add a task
         </EmptyState>
         <CommonDialog
-          v-if="showAddTaskDialog"
-          @close="showAddTaskDialog = false"
-          @keydown.esc="showAddTaskDialog = false"
+          v-if="addTaskDialog"
+          @close="hideAddTaskDialog"
+          @keydown.esc="hideAddTaskDialog"
         >
           <TaskForm />
+        </CommonDialog>
+        <CommonDialog
+          v-if="errorStore.message"
+          @close="errorStore.clearError"
+          @keydown.esc="errorStore.clearError"
+        >
+          <div class="error-container">
+            <p>{{ errorStore.message }}</p>
+          </div>
         </CommonDialog>
       </div>
     </div>
@@ -30,12 +35,22 @@ import TaskList from '~/components/containers/TaskList.vue';
 import EmptyState from '~/components/common/EmptyState.vue';
 import CommonDialog from '~/components/common/CommonDialog.vue';
 import TaskForm from '~/components/containers/TaskForm.vue';
+import useErrorStore from '~/store/error';
 
 const taskStore = useTaskStore();
-const showAddTaskDialog = useState('show-dialog', () => false);
+const errorStore = useErrorStore();
+const addTaskDialog = useState('show-add-task-dialog', () => false);
 
 await taskStore.fetchTasks();
 const { tasks } = taskStore;
+
+function showAddTaskDialog() {
+  addTaskDialog.value = true;
+}
+
+function hideAddTaskDialog() {
+  addTaskDialog.value = false;
+}
 
 useHead({
   title: 'Task Manager',
@@ -98,5 +113,9 @@ body {
 .empty-state {
   width: 100%;
   height: 30vh;
+}
+
+.error-container {
+  padding: 2rem;
 }
 </style>
