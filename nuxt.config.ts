@@ -2,7 +2,8 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/eslint-module', '@pinia/nuxt'],
+  // @ts-ignore
+  modules: ['@nuxtjs/eslint-module', '@pinia/nuxt', 'nuxt-vitest'],
   // @ts-ignore
   pages: true,
 });
