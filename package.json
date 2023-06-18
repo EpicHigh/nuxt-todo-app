@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev && pnpm db",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/test-utils": "^3.5.3",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@types/json-server": "^0.14.4",
     "@types/node": "^18",
@@ -20,12 +21,14 @@
     "@vue/eslint-config-airbnb-with-typescript": "^7.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
     "@vue/eslint-config-typescript": "^11.0.3",
+    "@vue/test-utils": "^2.3.2",
     "eslint": "^8.42.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.0",
     "nuxt": "^3.5.2",
     "prettier": "^2.8.8",
-    "pretty-quick": "^3.1.3"
+    "pretty-quick": "^3.1.3",
+    "vitest": "^0.32.2"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
