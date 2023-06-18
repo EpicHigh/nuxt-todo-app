@@ -13,7 +13,6 @@
   </NuxtLayout>
 </template>
 <script setup lang="ts">
-import CommonDialog from '~/components/CommonDialog.vue';
 import useErrorStore from '~/store/error';
 
 const errorStore = useErrorStore();

@@ -18,11 +18,6 @@
 </template>
 <script setup lang="ts">
 import useTaskStore, { Task } from '~/store/task';
-import TaskList from '~/components/TaskList.vue';
-import EmptyState from '~/components/EmptyState.vue';
-import CommonDialog from '~/components/CommonDialog.vue';
-import TaskForm from '~/components/TaskForm.vue';
-import TaskButton from '~/components/TaskButton.vue';
 
 const addTaskDialog = useState('show-add-task-dialog', () => false);
 const { tasks, addTask, fetchTasks } = useTaskStore();
