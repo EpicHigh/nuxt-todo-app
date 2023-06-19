@@ -1,63 +1,91 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Task Manager
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is a simple and intuitive task management application built using Nuxt 3 and json-server. It allows users to easily create, view, update, and delete tasks, giving them full control over their daily activities.
 
-## Setup
+## Table of Contents
 
-Make sure to install the dependencies:
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
+
+## Features
+
+- Create, update, and delete tasks
+- View all tasks in a list format
+- Sort tasks by priority or creation date
+- REST API simulated with json-server
+- Full test coverage using Vitest and Playwright
+
+## Technologies
+
+This application was created with:
+
+- Nuxt 3
+- json-server
+- TypeScript
+- CSS
+- Pinia (for state management)
+- Vitest (for unit and integration testing)
+- Playwright (for E2E testing)
+
+## Installation
+
+Before starting, ensure that you have Node.js installed on your machine. If not, download it [here](https://nodejs.org/).
+
+Additionally, this project uses pnpm for managing dependencies. If you don't have it installed, install it globally by running `npm install -g pnpm`.
+
+1. Clone the repository:
 
 ```bash
-# npm
-npm install
+git clone https://github.com/EpicHigh/nuxt-todo-app.git
+```
 
-# pnpm
+2. Navigate into the project directory:
+
+```bash
+cd nuxt-todo-app
+```
+
+3. Install the project dependencies:
+
+```bash
 pnpm install
-
-# yarn
-yarn install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+4. Start the json-server:
 
 ```bash
-# npm
-npm run dev
+pnpm run db
+```
 
-# pnpm
+Now, your backend is up and running on http://localhost:3001
+
+## Usage
+
+To start the application in development mode, run:
+
+```bash
 pnpm run dev
-
-# yarn
-yarn dev
 ```
 
-## Production
+Your application is now available at http://localhost:3000.
 
-Build the application for production:
+## Testing
+
+1. Run unit and integration tests:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
+pnpm run test
 ```
 
-Locally preview production build:
+2. Run end-to-end tests:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
+pnpm run test:e2e
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Deployment
+
+For a live demo of the application, visit [Nuxt Task Manager Demo]().
