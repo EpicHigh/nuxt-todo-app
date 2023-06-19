@@ -88,4 +88,4 @@ pnpm run test:e2e
 
 ## Deployment
 
-For a live demo of the application, visit [Nuxt Task Manager Demo]().
+For a live demo of the application, visit [Nuxt Task Manager Demo](https://nuxt-todo-app.onrender.com/).
