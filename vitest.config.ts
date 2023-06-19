@@ -10,5 +10,6 @@ export default defineVitestConfig({
         rootDir: fileURLToPath(new URL('./', import.meta.url)),
       },
     },
+    exclude: ['e2e/*', 'node_modules/**/*'],
   },
 });
